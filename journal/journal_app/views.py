@@ -107,7 +107,7 @@ def toggle_public(request):
 		entry_num = int(entry_num) if entry_num != None else None
 		logging.debug("Using this entry_num: " + entry_num.__str__())
 		result = None
-		if entry_num:
+		if entry_num is not None:
 			result = Entry.objects.toggle_public(request.user, entry_num)
 		if result == False:
 			response = { 'error' : 'Cannot modify entry' }
