@@ -202,11 +202,13 @@ class EntryManager(models.Manager):
 			return e
 
 	def toggle_public(self, author, entryNum):
+		logging.debug("Togglign for entryNum" + entryNum)
 		try:
 			e = self.filter(author=author).get(entryNum=entryNum)
 		except ObjectDoesNotExist:
 			return False
 		n = e.treeRoot
+		logging.debug("Working on this node" + n.get_dict())
 		if n.publicID != None:
 			logging.debug("Making node private.")
 			n.make_private()
