@@ -100,6 +100,7 @@ def search_nodes(request):
 
 @login_required
 def toggle_public(request):
+	logging.debug("In view: About to toggle public")
 	response = {}
 	if request.method == 'GET':
 		entry_num = request.GET.get('entryNum', None)
