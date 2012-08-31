@@ -50,7 +50,7 @@ USE_TZ = True
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+STATIC_URL = os.path.join(LOCAL_PATH, 'static')
 
 # Additional locations of static files
 STATICFILES_DIRS = (
