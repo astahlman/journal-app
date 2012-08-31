@@ -8,7 +8,7 @@ ROOT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-AUTH_PROFILE_MODULE = 'journal.journal_app.UserProfile'
+AUTH_PROFILE_MODULE = 'journal_app.UserProfile'
 LOGIN_REDIRECT_URL = '/read_entry/'
 
 ADMINS = (
