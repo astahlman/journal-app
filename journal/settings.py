@@ -112,6 +112,7 @@ try:
 		INSTALLED_APPS = ADDITIONAL_INSTALLED_APPS + INSTALLED_APPS
 except NameError:
 	# settings did not define additional apps, continue
+	INSTALLED_APPS = INSTALLED_APPS
 
 # Send an email to the site admins on every HTTP 500 error when DEBUG=False.
 LOGGING = {
