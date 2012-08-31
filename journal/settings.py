@@ -8,9 +8,9 @@ DEV_HOST = (
 )
 
 if node() in DEV_HOST:
-	from setting_dev import *
+	from settings_dev import *
 else:
-	from setting_prod import *
+	from settings_prod import *
 
 # These settings are common to both the production 
 # and development environment:
