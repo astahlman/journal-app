@@ -107,7 +107,7 @@ INSTALLED_APPS = (
 	'journal.journal_app',
 )
 
-if ADDITONAL_INSTALLED_APPS is not None:
+if ADDITIONAL_INSTALLED_APPS is not None:
 	INSTALLED_APPS = ADDITIONAL_INSTALLED_APPS + INSTALLED_APPS
 
 # Send an email to the site admins on every HTTP 500 error when DEBUG=False.

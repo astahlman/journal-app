@@ -5,7 +5,7 @@ DEBUG = False
 
 DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
 
-ADDITONAL_INSTALLED_APPS = (
+ADDITIONAL_INSTALLED_APPS = (
 	'gunicorn',
 )
 
