@@ -1,6 +1,6 @@
 # Create your views here.
 from django.utils import simplejson
-from entries.models import Node, Entry, Snippet
+from journal.journal_app.models import Node, Entry, Snippet
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
@@ -10,10 +10,10 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-from entries.custom_forms import RegisterForm 
+from journal.journal_app.custom_forms import RegisterForm 
 from dateutil.parser import parse as iso_date_parse
-from entries.custom_json import JSONEncoder as customJSON
-from entries.id_encoder import IdEncoder
+from journal.journal_app.custom_json import JSONEncoder as customJSON
+from journal.journal_app.id_encoder import IdEncoder
 from django.conf import settings
 import logging
 
