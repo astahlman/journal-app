@@ -208,8 +208,10 @@ class EntryManager(models.Manager):
 			return False
 		n = e.treeRoot
 		if n.publicID != None:
+			logging.debug("Making node private.")
 			n.make_private()
 		else:
+			logging.debug("Making node public.")
 			n.make_public()
 		return n.publicID
 
