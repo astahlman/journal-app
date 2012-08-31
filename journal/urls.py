@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.conf import settings
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -29,4 +30,5 @@ urlpatterns = patterns('',
 	url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', {'next_page' : '/'}),
 	url(r'^accounts/register/$', 'journal.journal_app.views.register'),
 	url(r'^tests/$', 'journal.journal_app.views.tests'),
+	url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root' : settings.STATIC_URL}),
 )
