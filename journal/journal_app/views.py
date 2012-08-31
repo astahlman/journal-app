@@ -190,7 +190,7 @@ def splash(request):
 	data = {}
 	data['can_save'] = False;
 	data['form'] = AuthenticationForm
-	f = open(settings.STATIC_ROOT + 'misc/splash_editor.txt', 'r')
+	f = open(settings.STATIC_URL + 'misc/splash_editor.txt', 'r')
 	data['default_text'] = f.read()
 	if request.user.is_authenticated():
 		data['num_entries'] = Entry.objects.filter(author=request.user).count()
