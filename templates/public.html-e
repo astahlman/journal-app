@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Andrew's App - Public Entry{% endblock %}
+
+{% block extra_head %}
+<script language='javascript' type="text/javascript">
+	var PublicViewGlobal = {
+		jsonNode : {{ json_node|safe}}
+	};
+</script>
+{% endblock %}
+
+{% block content %}
+	
+	<div class="container">
+		<div class="row" style="position:relative; top:20px;">
+			<div class="span10 offset1">
+				<div id="entryID">
+				</div>
+				<div id="entryViewerDiv">
+				</div>
+				<div id="parseErrorsDiv">
+					<table id="parseErrorsTable">
+					</table>	
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block load_js %}
+		<script type="text/javascript" src="{{STATIC_ROOT}}bootstrap/js/bootstrap-transition.js"></script>
+		<script type="text/javascript" src="{{STATIC_ROOT}}bootstrap/js/bootstrap-collapse.js"></script>
+		<script type="text/javascript" data-main="{{STATIC_ROOT}}js/public" src="{{STATIC_ROOT}}js/require.js"></script>
+{% endblock %}

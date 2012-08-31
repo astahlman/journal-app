@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome to Andrew's App{% endblock %}
+
+{% block extra_css %}
+textarea { width : 99%; height : 450px;}
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		<div class="hero-unit" style="padding: 15px">
+			<div class="row">
+				<div class="span6">
+					<h2>Welcome to Andrew's App</h2>
+					<p>Better note-taking for developers and non-geeks alike. Tag your notes using an intuitive syntax. Define templates that you can reuse later for quick, structured note-taking. Later, find and view only the sections you need. Get a sneak peek below. Once you're convinced, <a href="accounts/register">register</a> for free and start taking better notes today.</p>
+				</div>
+				<div class="span4">
+					{% if user.is_authenticated %}
+						<h3>Welcome back, {{ user.username }}.</h3>
+						<p><a href="/read_entry">Review</a> your latest entry, or <a href="/write_entry">write</a> entry number {{ num_entries|add:"1" }}.</p>
+					{% else %}
+						{% include 'login_form.html' %}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div id="splashEditor" class="span6">
+				<div class="well">
+				{% include 'editor.html' %}
+				</div>
+			</div>
+			<div id="spashViewer" class="span6">
+				<div id="entryViewerDiv">
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block load_js %}
+		<script type="text/javascript" src="{{STATIC_ROOT}}js/lib/jquery.timer.js"></script>
+		<script type="text/javascript" src="{{STATIC_ROOT}}bootstrap/js/bootstrap-transition.js"></script>
+		<script type="text/javascript" src="{{STATIC_ROOT}}bootstrap/js/bootstrap-collapse.js"></script>
+		<script type="text/javascript" data-main="{{STATIC_ROOT}}js/splash" src="{{STATIC_ROOT}}js/require.js"></script>
+{% endblock %}
