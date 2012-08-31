@@ -3,7 +3,7 @@
 {% endif %}
 
 {% if request.GET.next%}
-	<div class='aler alert-info'>Authentication required. You will be redirected after signing in.</div>
+	<div class='alert alert-info'>Authentication required. You will be redirected after signing in.</div>
 {% endif %}
 
 <form method="post" action="{% url django.contrib.auth.views.login %}">
