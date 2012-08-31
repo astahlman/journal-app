@@ -3,8 +3,8 @@
 <head>
 	<title>{% block title %}Base Template{% endblock %}</title>
 	<!-- Bootstrap CSS -->
-	<link href="{{STATIC_ROOT}}bootstrap/css/bootstrap.css" rel="stylesheet">
-	<link href="{{STATIC_ROOT}}bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="{{STATIC_URL}}bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link href="{{STATIC_URL}}bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 	<style>
 		body { padding : 60px; }
 		{% block extra_css %}{% endblock %}
@@ -49,10 +49,10 @@
 	{% block content %} {% endblock %}
 
 	<!-- Load Javascript last -->
-	<script type="text/javascript" src="{{STATIC_ROOT}}bootstrap/js/jquery.js"></script>
-	<script type="text/javascript" src="{{STATIC_ROOT}}bootstrap/js/bootstrap-dropdown.js"></script>
-	<script type="text/javascript" src="{{STATIC_ROOT}}bootstrap/js/bootstrap-modal.js"></script>
-	<script type="text/javascript" src="{{STATIC_ROOT}}js/lib/csrf_ajax.js"></script>
+	<script type="text/javascript" src="{{STATIC_URL}}bootstrap/js/jquery.js"></script>
+	<script type="text/javascript" src="{{STATIC_URL}}bootstrap/js/bootstrap-dropdown.js"></script>
+	<script type="text/javascript" src="{{STATIC_URL}}bootstrap/js/bootstrap-modal.js"></script>
+	<script type="text/javascript" src="{{STATIC_URL}}js/lib/csrf_ajax.js"></script>
 	{% block load_js %}{% endblock %}
 	<!-- End JS -->
 </body>
