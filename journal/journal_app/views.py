@@ -105,9 +105,9 @@ def toggle_public(request):
 	if request.method == 'GET':
 		entry_num = request.GET.get('entryNum', None)
 		entry_num = int(entry_num) if entry_num != None else None
+		logging.debug("Using this entry_num: " + entry_num)
 		result = None
 		if entry_num:
-			logging.debug("In view: About to toggle public")
 			result = Entry.objects.toggle_public(request.user, entry_num)
 		if result == False:
 			response = { 'error' : 'Cannot modify entry' }
