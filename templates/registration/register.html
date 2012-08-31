@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+	<div class="container">
+	{% if errors %}
+		<div class="row">	
+			<div class="span8 offset2">
+				{% if errors %}
+					<div class='alert alert-error'>
+						<h2>Oops. Looks like something went wrong...</h2>
+						<ul>
+						{% for err in errors %}
+							<li>{{ err }}</li>	
+						{% endfor %}
+						</ul>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+
+		<div class="row">
+			<div class="span8 offset2">
+				<form class="well" method="post" action="{% url entries.views.register %}">
+					{% csrf_token %}
+					<!-- Custom form display -->
+					{% for field in form %}
+						<div class="fieldWrapper">
+							<p><label for="id_{{ field.html_name }}"><h3>{{ field.label }}</h3></label></p>
+							</p>{{ field }}</p>
+							<p><small>{{ field.help_text }}</small></p>
+							{% if field.errors %}
+								<p>{{ field.errors }}</p>
+							{% endif %}
+						</div>
+					{% endfor %}
+					<input type="submit" class="btn" value='Sign in'/>
+				</form>
+			</div>
+		</div>
+
+	</div>
+{% endblock %}

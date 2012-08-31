@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Andrew's App - Write{% endblock %}
+
+{% block extra_css %}
+textarea { width : 99%; height : 250px;}
+{% endblock %}
+
+{% block content %}
+	<div class="container">
+		{% include 'editor.html' %}
+	</div>
+{% endblock %}
+
+{% block load_js %}
+		<script type="text/javascript" src="{{STATIC_URL}}js/lib/jquery.timer.js"></script>
+		<script type="text/javascript" data-main="{{STATIC_URL}}js/write" src="{{STATIC_URL}}js/require.js"></script>
+{% endblock %}

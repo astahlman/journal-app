@@ -1,0 +1,29 @@
+<div class="row-fluid">
+	<div class="span10 offset2">
+			<textarea name="description" id="editor_view">{% if default_text %}{{ default_text }}{% else %}Start typing your entry here...{% endif %}</textarea>
+	</div>
+</div>
+{% if can_save %}
+<div class="row-fluid">
+	<div class="span10 offset2">
+		<button id="saveButton" type="button" class="btn btn-primary pull-right">Save Entry</button> 
+	</div>
+</div>
+{% endif %}
+<div class="row-fluid">
+	<div class="span10 offset2">
+		<div id="parseErrorsDiv">
+			<h2>Parse Errors</h2>
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>Line</th>
+						<th>Error</th>
+					</tr>
+				</thead>
+				<tbody id="errTable">
+				</tbody>
+			</table>	
+		</div>
+	</div>
+</div>
