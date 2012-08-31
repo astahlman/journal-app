@@ -4,12 +4,13 @@ import dj_database_url
 from os.path import join, dirname, normpath
 import logging
 
-LOCAL_PATH = normpath(join(dirname(__file__), '..'))
+#LOCAL_PATH = normpath(join(dirname(__file__), '..'))
+LOCAL_PATH = normpath(dirname(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-AUTH_PROFILE_MODULE = 'journal_app.UserProfile'
+AUTH_PROFILE_MODULE = 'journal.journal_app.UserProfile'
 LOGIN_REDIRECT_URL = '/read_entry/'
 
 ADMINS = (
