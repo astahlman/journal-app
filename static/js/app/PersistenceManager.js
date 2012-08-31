@@ -3,6 +3,7 @@ define (function (require, exports, module) {
 	var Editor = require("./Editor");
 	var Models = require("./Models");
 
+	/*
 	var SAVE_ENTRY_URL = "http://127.0.0.1:8000/save_entry/";	
 	var GET_ENTRIES_URL = "http://127.0.0.1:8000/get_entries/";	
 	var NODE_SEARCH_URL = 'http://127.0.0.1:8000/search_nodes/';
@@ -10,7 +11,16 @@ define (function (require, exports, module) {
 	var GET_SNIPPETS_URL = 'http://127.0.0.1:8000/get_snippets/';
 	var SAVE_SNIPPET_URL = 'http://127.0.0.1:8000/save_snippet/';
 	var TOGGLE_PUBLIC_URL = 'http://127.0.0.1:8000/toggle_public/';
+	*/
 	
+	var SAVE_ENTRY_URL = "/save_entry/";	
+	var GET_ENTRIES_URL = "/get_entries/";	
+	var NODE_SEARCH_URL = '/search_nodes/';
+	var GET_NODE_URL = '/get_node/';
+	var GET_SNIPPETS_URL = '/get_snippets/';
+	var SAVE_SNIPPET_URL = '/save_snippet/';
+	var TOGGLE_PUBLIC_URL = '/toggle_public/';
+
 	function saveEntry(lines, entryNum, callback) {
 		var entry = new Entry(lines);	
 		var rawText = lines.join('\n');
