@@ -4,7 +4,7 @@ import os.path
 import logging
 
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
-
+ROOT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
