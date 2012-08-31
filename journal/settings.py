@@ -1,11 +1,22 @@
-# Django settings for journal_site project.
-import dj_database_url
+from platform import node
+
+ROOT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
+
+DEV_HOST = (
+	'Andrew-Stahlmans-MacBook-Pro.local',
+)
+
+if node() in DEV_HOST:
+	from setting_dev import *
+else:
+	from setting_prod import *
+
+# These settings are common to both the production 
+# and development environment:
+
 import os.path
 import logging
 
-PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
-ROOT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
-DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 AUTH_PROFILE_MODULE = 'journal_app.UserProfile'
@@ -17,35 +28,20 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
-
-# Local time zone for this installation. Choices can be found here:
-# http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
-# although not all choices may be available on all operating systems.
-# On Unix systems, a value of None will cause Django to use the same
-# timezone as the operating system.
-# If running in a Windows environment this must be set to the same as your
-# system time zone.
 TIME_ZONE = 'America/Chicago'
 
-# Language code for this installation. All choices can be found here:
-# http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
 
 SITE_ID = 1
 
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
+# Internationalization
 USE_I18N = True
 
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale.
+# Locale
 USE_L10N = True
 
-# If you set this to False, Django will not use timezone-aware datetimes.
+# Timezone
 USE_TZ = True
-
-# Not using this stuff... (for now)
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -55,10 +51,6 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-	#os.path.join(PROJECT_PATH, 'static/'),
 )
 
 
@@ -96,14 +88,9 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'journal.urls'
 
-# Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'journal.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-	os.path.join(PROJECT_PATH, 'templates'),
 	os.path.join(ROOT_PATH, 'templates'),
 )
 
@@ -114,19 +101,15 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.admin',
+    'django.contrib.admindocs',
 	'journal.journal_app',
-	'gunicorn',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
 )
 
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error when DEBUG=False.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
-# more details on how to customize your logging configuration.
+if ADDITONAL_INSTALLED_APPS is not None:
+	INSTALLED_APPS = ADDITIONAL_INSTALLED_APPS + INSTALLED_APPS
+
+# Send an email to the site admins on every HTTP 500 error when DEBUG=False.
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
