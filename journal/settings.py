@@ -1,10 +1,9 @@
 # Django settings for journal_site project.
 import dj_database_url
-
-from os.path import join, dirname, normpath
+import os.path
 import logging
 
-LOCAL_PATH = normpath(join(dirname(__file__), '..'))
+PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -50,14 +49,16 @@ USE_TZ = True
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = join(LOCAL_PATH, 'static/')
+STATIC_ROOT = join(PROJECT_PATH, 'staticfiles')
+
+STATIC_URL = ''
 
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-	join(LOCAL_PATH, 'static/'),
+	join(PROJECT_PATH, 'static'),
 )
 
 
@@ -102,7 +103,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-	join(LOCAL_PATH, 'templates'),
+	join(PROJECT_PATH, 'templates'),
 )
 
 INSTALLED_APPS = (

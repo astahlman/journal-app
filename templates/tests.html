@@ -3,22 +3,22 @@
 <head>
 	<meta charset="utf-8">
 	<title>Journal App Unit Tests</title>
-	<link rel="stylesheet" href="{{STATIC_URL}}js/testing/qunit/qunit.css">
+	<link rel="stylesheet" href="{{STATIC_ROOT}}js/testing/qunit/qunit.css">
 </head>
 <body>
 	<div id="qunit"></div>
-	<script type="text/javascript" src="{{STATIC_URL}}bootstrap/js/jquery.js"></script>
-	<script type="text/javascript" src="{{STATIC_URL}}js/lib/jquery.timer.js"></script>
-	<script src="{{STATIC_URL}}js/testing/qunit/qunit.js"></script>
+	<script type="text/javascript" src="{{STATIC_ROOT}}bootstrap/js/jquery.js"></script>
+	<script type="text/javascript" src="{{STATIC_ROOT}}js/lib/jquery.timer.js"></script>
+	<script src="{{STATIC_ROOT}}js/testing/qunit/qunit.js"></script>
 	<script type="text/javascript">
 		var PARSER_VALID_TXT, PARSER_INVALID_TXT;
-		$.get("{{STATIC_URL}}js/testing/resources/parser_test_valid.txt", function (data) {
+		$.get("{{STATIC_ROOT}}js/testing/resources/parser_test_valid.txt", function (data) {
 			PARSER_VALID_TXT = data;
 		});
-		$.get("{{STATIC_URL}}js/testing/resources/parser_test_invalid.txt", function (data) {
+		$.get("{{STATIC_ROOT}}js/testing/resources/parser_test_invalid.txt", function (data) {
 			PARSER_INVALID_TXT = data;
 		});
 	</script>
-	<script type="text/javascript" data-main="{{STATIC_URL}}js/testing/RunTests" src="{{STATIC_URL}}js/require.js"></script>
+	<script type="text/javascript" data-main="{{STATIC_ROOT}}js/testing/RunTests" src="{{STATIC_ROOT}}js/require.js"></script>
 </body>
 </html>

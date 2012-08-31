@@ -39,8 +39,8 @@ textarea { width : 99%; height : 450px;}
 {% endblock %}
 
 {% block load_js %}
-		<script type="text/javascript" src="{{STATIC_URL}}js/lib/jquery.timer.js"></script>
-		<script type="text/javascript" src="{{STATIC_URL}}bootstrap/js/bootstrap-transition.js"></script>
-		<script type="text/javascript" src="{{STATIC_URL}}bootstrap/js/bootstrap-collapse.js"></script>
-		<script type="text/javascript" data-main="{{STATIC_URL}}js/splash" src="{{STATIC_URL}}js/require.js"></script>
+		<script type="text/javascript" src="{{STATIC_ROOT}}js/lib/jquery.timer.js"></script>
+		<script type="text/javascript" src="{{STATIC_ROOT}}bootstrap/js/bootstrap-transition.js"></script>
+		<script type="text/javascript" src="{{STATIC_ROOT}}bootstrap/js/bootstrap-collapse.js"></script>
+		<script type="text/javascript" data-main="{{STATIC_ROOT}}js/splash" src="{{STATIC_ROOT}}js/require.js"></script>
 {% endblock %}
