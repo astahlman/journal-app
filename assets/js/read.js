@@ -24,8 +24,6 @@ function (NodeViewer, NodeSearcher, PersistenceManager, UtilityFunctions) {
 		var $prevEntry = $('#prevEntry').attr('disabled' , 'disabled');
 		var $editEntry = $('#editEntry').attr('disabled' , 'disabled');
 		var $shareEntry = $('#shareEntry');
-		var $dateLabel = $('#creationDateLabel');
-		var $publicIDLabel = $('#publicIDLabel');
 		var $entryHeader = $('#entryHeader')
 		var NONE = -1;
 
@@ -84,7 +82,7 @@ function (NodeViewer, NodeSearcher, PersistenceManager, UtilityFunctions) {
 				var $idLabel = $('<h4>');
 				if (currentEntry.treeRoot['publicID']) {
 					var url = '/public/' + currentEntry.treeRoot['publicID'] + '/';
-					$idLabel.html("This entry is <a href='" + url + "'>public</a>");
+					$idLabel.html("This entry is <a href='" + url + "' target='_blank'>public</a>");
 				} else {
 					$idLabel.text("This entry is private.");
 				}
