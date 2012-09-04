@@ -1,11 +1,11 @@
 from platform import node
 import os
 
-ROOT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
-
 DEV_HOST = (
 	'Andrew-Stahlmans-MacBook-Pro.local',
 )
+
+ROOT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 
 if node() in DEV_HOST:
 	from settings_dev import *
@@ -52,6 +52,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+	os.path.join(ROOT_PATH, 'assets/'),
 )
 
 
