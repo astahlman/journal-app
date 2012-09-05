@@ -179,11 +179,13 @@ post_save.connect(create_user_profile, sender=User)
 class EntryManager(models.Manager):
 	"""Custom Manager for Entry model."""
 	def create_entry(self, rawText, author, rootData):
-		e = self.create(rawText=rawText, author=author, entryNum=author.get_profile().numEntries, creationDate=now(), lastEditDate=now())
+		lastEntry = author.get_profile().get_last_entry()
+		newEntryNum = lastEntry.entryNum  + 1 if lastEntry is not None else 0
+		e = self.create(rawText=rawText, author=author, entryNum=newEntryNum, creationDate=now(), lastEditDate=now())
 		e.save()
 		e.treeRoot = Node.build_subtree(rootData['nodeVal'], rootData['nodeType'], rootData['nodeContent'], rootData['level'], rootData['children'], e) 
 		e.save()
-		author.get_profile().numEntries += 1
+		author.get_profile().numEntries = newEntryNum + 1 # 0-indexed
 		author.get_profile().save()
 		return e
 
@@ -194,11 +196,13 @@ class EntryManager(models.Manager):
 			e = None
 		if e is not None:
 			e.rawText = rawText
-			e.treeRoot.delete()
+			oldRoot = e.treeRoot
 			logging.debug("About to update the entry.")
 			e.treeRoot = Node.build_subtree(rootData['nodeVal'], rootData['nodeType'], rootData['nodeContent'], rootData['level'], rootData['children'], e) 
 			e.lastEditDate = now()
 			e.save()
+			# make sure to delete AFTER resetting the entry rootNode so delete doesn't cascade
+			oldRoot.delete() 
 			return e
 
 	def toggle_public(self, author, entryNum):

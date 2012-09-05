@@ -15,25 +15,33 @@ from dateutil.parser import parse as iso_date_parse
 from journal.journal_app.custom_json import JSONEncoder as customJSON
 from journal.journal_app.id_encoder import IdEncoder
 from django.conf import settings
+from django.http import Http404
 import logging
 
 @login_required
 def save_entry(request):
 	logging.debug("Received request for save_entry")
-	responseData = {}
+	responseData = {'status' : 'fail'}
+	profile = request.user.get_profile()
 	if request.method == 'POST':
 		data = simplejson.loads(request.raw_post_data)
 		logging.debug("Just deserialized data: %s", data.__str__())
 		if data['rawText'].__len__() > 0 and data['root'] is not None:
-			if data.get('entryNum', None) is None or data['entryNum'] < 0:
+			entryNum = data.get('entryNum', None)
+			chosenEntry = profile.get_entry_by_num(entryNum)
+			lastEntry = profile.get_last_entry()
+			savedEntry = None
+			if chosenEntry is not None:
+				savedEntry = Entry.objects.update_entry(data['entryNum'], data['rawText'], request.user, data['root'])
+				responseData['status'] = 'success'
+			elif entryNum < 0 or lastEntry is None or entryNum == lastEntry.entryNum + 1:
 				logging.debug("About to create entry: rootData = %s", data['root'].__str__())
-				e = Entry.objects.create_entry(data['rawText'], request.user, data['root'])
-				logging.debug("About to save...")
-				e.save()
-			else:
-				e = Entry.objects.update_entry(data['entryNum'], data['rawText'], request.user, data['root'])
-		responseData['entryNum'] = e.entryNum if e is not None else -1
+				savedEntry = Entry.objects.create_entry(data['rawText'], request.user, data['root'])
+				responseData['status'] = 'success'
+
+	responseData['entryNum'] = savedEntry.entryNum if savedEntry is not None else -1
 	return HttpResponse(simplejson.dumps(responseData), mimetype="application/json")
+
 @login_required
 def write_entry(request):
 	logging.debug("Received request for write_entry")
@@ -128,8 +136,11 @@ def get_public_node(request, id_string=''):
 	data = {}
 	if request.method == 'GET' and len(id_string) >= IdEncoder.MIN_LENGTH:
 		n = Node.objects.get_public_node(id_string)
-		data = simplejson.dumps(n.get_dict(), cls=customJSON)
-	return render_to_response('public.html', { 'json_node' : data }, context_instance=RequestContext(request))
+		if n is not None:
+			data = simplejson.dumps(n.get_dict(), cls=customJSON)
+			return render_to_response('public.html', { 'json_node' : data }, context_instance=RequestContext(request))
+		else:
+			raise Http404
 
 def register(request):
 	errors = []
@@ -195,3 +206,9 @@ def splash(request):
 	if request.user.is_authenticated():
 		data['num_entries'] = Entry.objects.filter(author=request.user).count()
 	return render_to_response('splash.html', data, context_instance=RequestContext(request))
+
+def about(request):
+	return render_to_response('about.html', context_instance=RequestContext(request))
+
+def not_found(request):
+	return render_to_response('404.html', context_instance=RequestContext(request))

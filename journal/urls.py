@@ -4,6 +4,7 @@ from django.conf import settings
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
 # admin.autodiscover()
+handler404 = 'journal.journal_app.views.not_found'
 
 urlpatterns = patterns('',
     # Examples:
@@ -16,6 +17,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
 	url(r'^$', 'journal.journal_app.views.splash'),
+	url(r'^about/', 'journal.journal_app.views.about'),
 	url(r'^save_entry/', 'journal.journal_app.views.save_entry'),
 	url(r'^save_snippet/', 'journal.journal_app.views.save_snippet'),
 	url(r'^get_snippets/', 'journal.journal_app.views.get_snippets'),

@@ -10,3 +10,7 @@ DATABASES = {
         'NAME': os.path.join(ROOT_PATH, 'development/database/sqlite3.db'),
     }
 }
+
+key_path = os.path.join(ROOT_PATH, 'assets/misc/extra_settings.txt')
+SECRET_KEY = open(key_path, 'r').read()
+

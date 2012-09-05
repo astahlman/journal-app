@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Welcome to Andrew's App{% endblock %}
+{% block title %}DearQwerty{% endblock %}
 
 {% block extra_css %}
 textarea { width : 99%; height : 450px;}
@@ -10,11 +10,11 @@ textarea { width : 99%; height : 450px;}
 	<div class="container">
 		<div class="hero-unit" style="padding: 15px">
 			<div class="row">
-				<div class="span6">
-					<h2>Welcome to Andrew's App</h2>
+				<div class="span8">
+					<h1>DearQwerty</h1>
 					<p>Better note-taking for developers and non-geeks alike. Tag your notes using an intuitive syntax. Define templates that you can reuse later for quick, structured note-taking. Later, find and view only the sections you need. Get a sneak peek below. Once you're convinced, <a href="accounts/register">register</a> for free and start taking better notes today.</p>
 				</div>
-				<div class="span4">
+				<div class="span2">
 					{% if user.is_authenticated %}
 						<h3>Welcome back, {{ user.username }}.</h3>
 						<p><a href="/read_entry">Review</a> your latest entry, or <a href="/write_entry">write</a> entry number {{ num_entries|add:"1" }}.</p>
@@ -30,7 +30,7 @@ textarea { width : 99%; height : 450px;}
 				{% include 'editor.html' %}
 				</div>
 			</div>
-			<div id="spashViewer" class="span6">
+			<div id="splashViewer" class="span6">
 				<div id="entryViewerDiv">
 				</div>
 			</div>

@@ -1,12 +1,12 @@
 from platform import node
 import os
 
+
 DEV_HOST = (
 	'Andrew-Stahlmans-MacBook-Pro.local',
 )
 
 ROOT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
-
 if node() in DEV_HOST:
 	from settings_dev import *
 else:
@@ -56,8 +56,6 @@ STATICFILES_DIRS = (
 )
 
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = 'kx9hw$-mpcl%x)*up#f(+7rd2c*gop$0yc5m&amp;pqsaz41vmui_v'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -113,7 +111,7 @@ try:
 		INSTALLED_APPS = ADDITIONAL_INSTALLED_APPS + INSTALLED_APPS
 except NameError:
 	# settings did not define additional apps, continue
-	INSTALLED_APPS = INSTALLED_APPS
+	pass
 
 # Send an email to the site admins on every HTTP 500 error when DEBUG=False.
 LOGGING = {
