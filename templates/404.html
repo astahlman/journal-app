@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %} Error - 404 {% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="span8 offset2">
+			<h1> Error - something went wrong. </h1>
+			<p><a href="/feedback">Tell us about it.</a></p>
+			<p><img src="{{ STATIC_URL }}misc/gob_404.png"></p>
+		</div>
+	</div>
+</div>
+{% endblock %}
