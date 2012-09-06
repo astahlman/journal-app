@@ -11,6 +11,8 @@ DATABASES = {
     }
 }
 
-key_path = os.path.join(ROOT_PATH, 'assets/misc/extra_settings.txt')
-SECRET_KEY = open(key_path, 'r').read()
+key_path = os.path.join(ROOT_PATH, 'development/extra_settings.txt')
+extra_settings = open(key_path, 'r')
+for line in extra_settings:
+	exec line # evaluates the strings as assignments
 

@@ -10,12 +10,14 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-from journal.journal_app.custom_forms import RegisterForm 
+from journal.journal_app.custom_forms import RegisterForm, CommentsForm
 from dateutil.parser import parse as iso_date_parse
 from journal.journal_app.custom_json import JSONEncoder as customJSON
 from journal.journal_app.id_encoder import IdEncoder
 from django.conf import settings
 from django.http import Http404
+from django.core.mail import send_mail
+from journal.journal_app.email_helper import send_email
 import logging
 
 @login_required
@@ -141,6 +143,30 @@ def get_public_node(request, id_string=''):
 			return render_to_response('public.html', { 'json_node' : data }, context_instance=RequestContext(request))
 		else:
 			raise Http404
+
+def comments(request):
+	errors = []
+	success = False
+	if request.method == 'POST':
+		form = CommentsForm(request.POST)
+		if form.is_valid():
+			email_body = ''
+			if form.cleaned_data['name'] is not None:
+				email_body += 'Name: ' + form.cleaned_data['name'] + '\n'
+			if form.cleaned_data['email'] is not None:
+				email_body += 'Email: ' + form.cleaned_data['email'] + '\n'
+			email_body += form.cleaned_data['text']
+			gmail = settings.WEBMASTER_EMAIL
+			gmail_pass = settings.WEBMASTER_PASS
+			if not send_email(email_body, from_user=gmail, to_user=gmail, email_pass=gmail_pass):
+				logging.debug("Failed to send email.")
+				errors.append('Sorry, send failed. Maybe you could let webmaster.dear.qwerty@gmail.com know. I know he would appreciate it.')
+			else:
+				success = True
+	else:
+		form = CommentsForm
+
+	return render_to_response('comments.html', {'form' : form, 'errors' : errors, 'success' : success}, context_instance=RequestContext(request))
 
 def register(request):
 	errors = []

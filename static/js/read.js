@@ -24,14 +24,12 @@ function (NodeViewer, NodeSearcher, PersistenceManager, UtilityFunctions) {
 		var $prevEntry = $('#prevEntry').attr('disabled' , 'disabled');
 		var $editEntry = $('#editEntry').attr('disabled' , 'disabled');
 		var $shareEntry = $('#shareEntry');
-		var $dateLabel = $('#creationDateLabel');
-		var $publicIDLabel = $('#publicIDLabel');
 		var $entryHeader = $('#entryHeader')
 		var NONE = -1;
 
-		var currentEntry = {};
+		var currentEntry = null;
 		
-		var containingEntryNum = NONE;
+		var containingEntry = NONE;
 
 		NodeViewer.init({
 			$viewerDiv : $viewer,
@@ -84,13 +82,13 @@ function (NodeViewer, NodeSearcher, PersistenceManager, UtilityFunctions) {
 				var $idLabel = $('<h4>');
 				if (currentEntry.treeRoot['publicID']) {
 					var url = '/public/' + currentEntry.treeRoot['publicID'] + '/';
-					$idLabel.html("This entry is <a href='" + url + "'>public</a>");
+					$idLabel.html("This entry is <a href='" + url + "' target='_blank'>public</a>");
 				} else {
 					$idLabel.text("This entry is private.");
 				}
 				$entryHeader.append($idLabel);
 				$entryHeader.append($dateLabel);
-			} else {
+			} else if (containingEntry !== NONE) {
 				$btn = $('<button class="btn">');
 				$btn.text('View full entry');
 				$btn.click(function (e) {
@@ -114,8 +112,13 @@ function (NodeViewer, NodeSearcher, PersistenceManager, UtilityFunctions) {
 			if (response.treeRoot) {
 				var n = PersistenceManager.nodeFromJSON(response.treeRoot);
 				NodeViewer.buildNodeView(n);
+				currentEntry = response;
+			} else {
+				$viewer.empty();
+				var $p = $('<p>');
+				$p.html("Looks like you don't have any entries. yet. <a href='/write_entry'>Write one.</a>");
+				$viewer.append($p);
 			}
-			currentEntry = response;
 			containingEntry = NONE;
 
 			resetToolbar();

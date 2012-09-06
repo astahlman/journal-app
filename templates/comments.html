@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %} Comments {% endblock %}
+
+{% block extra_css %}
+	textarea { width : 99%; height : 200px }
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="span8 offset2">
+			{% if errors %}
+			<div class="alert alert-error">
+				<ul>
+					{% for error in errors %}
+					<li>
+						{{ error }}
+					</li>
+					{% endfor %}
+				</ul>
+			</div>
+			{% elif success %}
+			<div class="alert alert-info">
+				<h2>We got your comment. Joan thanks you, from the bottom of her heart.</h2>
+				<p>
+					<img src="{{STATIC_URL}}misc/joan_clapping.gif">
+				</p>
+			</div>
+			{% else %}
+			<form class="well" method="post" action="{% url journal_app.views.comments %}">
+				{% csrf_token %}
+				<!-- Custom form display -->
+				{% for field in form %}
+					<div class="fieldWrapper">
+						<p><label for="id_{{ field.html_name }}"><h3>{{ field.label }}</h3></label></p>
+						</p>{{ field }}</p>
+						<p><small>{{ field.help_text }}</small></p>
+						{% if field.errors %}
+							<p>{{ field.errors }}</p>
+						{% endif %}
+					</div>
+				{% endfor %}
+				<input type="submit" class="btn" value='Send'/>
+			</form>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock %}

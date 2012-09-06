@@ -52,16 +52,17 @@ function (CreateEntryManager, Models, PersistenceManager, UtilityFunctions) {
 				curEntryNum, 
 				function(response) {
 					var msg = '';
-					if (response['entryNum'] >= 0) {
-						curEntryNum = response['entryNum'];
+					curEntryNum = response['entryNum'];
+					if (response['status'] == 'success') {
 						msg = 'Successfully saved entry ' + response['entryNum'];
 					} else {
 						msg = 'Save failed.';
 					}
 					alert(msg);
+					window.location = '/write_entry/?entryNum=' + response['entryNum'];
+					return;
 				}
 			);
-			console.log("Saved new entry");
 		});
 
 	});
