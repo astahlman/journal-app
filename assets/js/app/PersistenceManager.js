@@ -2,6 +2,7 @@ define (function (require, exports, module) {
 	var Parser = require("./Parser");
 	var Editor = require("./Editor");
 	var Models = require("./Models");
+	var Logger = require("./Logger");
 
 	/*
 	var SAVE_ENTRY_URL = "http://127.0.0.1:8000/save_entry/";	
@@ -29,9 +30,9 @@ define (function (require, exports, module) {
 			data.entryNum = entryNum;
 		}
 		var json = JSON.stringify(data);
-		console.log("Here is the JSON: " + json);
+		Logger.log("Here is the JSON: " + json);
 		$.post(SAVE_ENTRY_URL, json, function (response) { 
-			"Save entry response: " + console.log(response); 
+			"Save entry response: " + Logger.log(response); 
 			callback(response);
 		}, "json"); 
 	}
@@ -39,8 +40,8 @@ define (function (require, exports, module) {
 	function saveSnippet(snippet) {
 		var data = { name : snippet.name, content : snippet.lines.join('\n') };
 		var json = JSON.stringify(data);
-		console.log("Here is the JSON: " + json);
-		$.post(SAVE_SNIPPET_URL, json, function (response) { "Save snippet response: " + console.log(response); }, "json"); 
+		Logger.log("Here is the JSON: " + json);
+		$.post(SAVE_SNIPPET_URL, json, function (response) { "Save snippet response: " + Logger.log(response); }, "json"); 
 	}
 
 	function nodeToJSON(n) {
@@ -133,7 +134,7 @@ define (function (require, exports, module) {
 	
 	function searchNodes(params, callback) {
 		var jsonData = JSON.stringify(params);
-		console.log("Here are the request params: " + jsonData);
+		Logger.log("Here are the request params: " + jsonData);
 		$.ajax({
 				url: NODE_SEARCH_URL,
 				type: 'POST',
@@ -141,7 +142,7 @@ define (function (require, exports, module) {
 				data: jsonData,
 				dataType: 'text',
 			}).done(function(response) {
-				console.log("Received these nodes: " + JSON.stringify(response));
+				Logger.log("Received these nodes: " + JSON.stringify(response));
 				callback(response);
 			});
 	}
@@ -155,7 +156,7 @@ define (function (require, exports, module) {
 				data: data,
 				dataType: 'json',
 			}).done(function(response) {
-				console.log("Response from toggle_public: " + JSON.stringify(response));
+				Logger.log("Response from toggle_public: " + JSON.stringify(response));
 				callback(response);
 			});
 

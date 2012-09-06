@@ -1,10 +1,11 @@
-Delete this when you're done reading and try it out for yourself!
+<h3>Delete this when you're done reading and try it out for yourself!</h3>
 
 <*Introduction*>
 	This is inside the Introduction tag. Tags give us a way of grouping things logically, enabling easier searching and viewing. See that little icon in the top left? That minimizes the tag. Theoretically you could use this app to save your notes without ever using tags, but you would really be missing out.
 	<*SideNote*>
 		By the way, it's possible to nest tags. See? In fact, you probably will unless you're just jotting down something really simple.
 	<*/SideNote*>
+	P.S. Tags are all one word, and don't get crazy with the symbols.
 <*/Introduction*>
 <*Features*>
 	<*Templates*>

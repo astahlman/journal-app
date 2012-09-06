@@ -1,5 +1,6 @@
 define (function (require, exports, module) {
 	var PersistenceManager = require('./PersistenceManager');
+	var Logger = require('./Logger');
 
 	var $searchBar;
 	var $searchBtn;
@@ -107,7 +108,7 @@ define (function (require, exports, module) {
 		var that = this;
 		function didCompleteSearch(json) {
 			var results = eval(json);
-			console.log("Search results from query \'" + query + "\':" + json);
+			Logger.log("Search results from query \'" + query + "\':" + json);
 			that.model = results;
 			that.updateView();
 		}
@@ -162,9 +163,30 @@ define (function (require, exports, module) {
 			});
 			return $tr;
 		}
+		function buildBlankRow() {
+			var $tr = $('<tr>');
+			var $tdPreview= $('<td>');
+			$tdPreview.text('No nodes matching query');
+			var $tdEntry = $('<td>');
+			$tdEntry.text('-');
+			var $tdDate = $('<td>');
+			$tdDate.text('-');
+			$tr.append($tdPreview);
+			$tr.append($tdEntry);
+			$tr.append($tdDate);
+			$tr.attr('data-dismiss', 'modal');
+			$tr.click(function () {
+				$(that).trigger('nodeSelected', result.nodeID);
+			});
+			return $tr;
+		}
 		this.clearResults();
-		for (var i = 0; i < nodes.length; i++) {
-			this.$table.children('tbody').append(buildRow(nodes[i]));
+		if (nodes.length > 0) {
+			for (var i = 0; i < nodes.length; i++) {
+				this.$table.children('tbody').append(buildRow(nodes[i]));
+			}
+		} else {
+			this.$table.children('tbody').append(buildBlankRow());
 		}
 	}
 

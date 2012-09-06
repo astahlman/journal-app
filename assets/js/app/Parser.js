@@ -1,6 +1,7 @@
 define (function (require, exports, module) {
 	var Models = require('./Models');
 	var Lexer = require('./Lexer');
+	var Logger = require('./Logger');
 
 	function buildParseTree (lines) {
 		var tokens = Lexer.extractTokens(lines);
@@ -46,9 +47,9 @@ define (function (require, exports, module) {
 		var newLineRegex = new RegExp("\n", "g");
 		
 		function logToken(t) {
-			console.log("Token: val=" + t.val + ", type=" + t.type + ", line=" + t.range.start.lineIndex);
+			Logger.log("Token: val=" + t.val + ", type=" + t.type + ", line=" + t.range.start.lineIndex);
 		}
-		console.log("Here are the tokens:");
+		Logger.log("Here are the tokens:");
 		tokens.forEach(logToken);
 		while (tokens.length > 0) {
 			t = tokens.pop(); 
@@ -67,14 +68,14 @@ define (function (require, exports, module) {
 					}
 					ignoreRange.setEnd(ignored.range.end);
 					t.val = t.contents = contents;
-					console.log("Creating ignore node: " + t.val + " at level " + level + " on line " + t.range.start.lineIndex);
+					Logger.log("Creating ignore node: " + t.val + " at level " + level + " on line " + t.range.start.lineIndex);
 					n = new Models.Node(t, level, ignoreRange);
 					cur.addChild(n);
 				} else if (t.val === cur.nodeVal) { // duplicate of parent
 					results.errors.push({ line : t.range.start.lineIndex, message : "Parent can't be its own child."});
 					return results;
 				} else { // valid node with children
-					console.log("Creating node: " + t.type + ", " + t.val + 
+					Logger.log("Creating node: " + t.type + ", " + t.val + 
 						" at level " + level + " on line " + t.range.start.lineIndex);
 					n = new Models.Node(t, level);
 					n.range.setStart(t.range.start);
@@ -95,7 +96,7 @@ define (function (require, exports, module) {
 				cur = cur.parentNode;
 				level--;
 			} else { // plain content
-				console.log("Creating content node at level " + level + ". Content: " + t.val);
+				Logger.log("Creating content node at level " + level + ". Content: " + t.val);
 				n = new Models.Node(t, level);
 				n.range.setStart(t.range.start);
 				n.range.setEnd(t.range.end);
@@ -109,7 +110,7 @@ define (function (require, exports, module) {
 		}
 
 		results.rootNode = root;
-		console.log("No more tokens...");
+		Logger.log("No more tokens...");
 		return results;
 	}
 
@@ -120,7 +121,7 @@ define (function (require, exports, module) {
 		});
 		if (nodes.length > 0) {
 			nodes = nodes.substring(0, nodes.length - 2);
-			console.log("Level: " + level + " - " + nodes);	
+			Logger.log("Level: " + level + " - " + nodes);	
 		}
 		root.children.forEach( function(child) {
 			printParseTree(child, level + 1);

@@ -12,6 +12,7 @@
 				<form class="well form-search">
 					<input id="searchBar" type="text" class="input-medium search query">
 					<a id="searchBtn" class="btn" data-toggle="modal" href="#modalSearch" class="btn btn-primary">Search</a>
+					<a id="searchHelpIcon" data-toggle="modal" href="#modalSearchHelp"><i class="icon-question-sign"></i></a>
 					<button id="nextEntry" class="btn pull-right">Next Entry<i class='icon-arrow-right'></i></button>
 					<button id="prevEntry" class="btn pull-right"><i class='icon-arrow-left'></i>Previous Entry</button>
 					<button id="shareEntry" class="btn pull-right">Share <i id='shareIcon' class='icon-globe'></i></button>
@@ -37,6 +38,41 @@
 			</div>
 		</div>
 		<!-- end of modal search -->
+		<!-- modal search help -->
+		<div class="row">
+			<div id="modalSearchHelp" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalSearchHelpLabel" aria-hidden="true">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h3 id="modalSearchLabel">Search Help</h3>
+				</div>
+				<div class="modal-body" id="searchDisplay">
+					<p> You can search based on three criteria:
+						<ul>
+							<li> Tag name: e.g., '#Appointments' </li>
+							<li> Keywords: e.g., 'groceries milk tomorrow' </li>
+							<li> Date: 
+								<ul> 
+									<li>[,12/25/2011] - on or before December 25, 2011</li>
+									<li>[12/25/2011] - on December 25, 2011</li>
+									<li>[12/25/2011,] - on or after December 25, 2011</li>
+									<li>[12/25/2011,12/31/2011] - between December 25, 2011 and December 31, 2011, inclusive</li>
+								</ul>
+							</li>
+						</ul>
+				   	</p>
+					<p>
+						You combine your search criteria with a pipe. (This thing: | ) So putting it all together, let's say we really want to find those notes we took in class the other day in Computer Architecture...</br>
+						<h4>#ComputerArchitecture | memory bottleneck cpu | [,8/29/2012] </h4></br>
+						<small> Find nodes at or under #ComputerArchitecture that include the words 'memory', 'bottleneck' or 'cpu' that were created on or before August 29, 2012.</small>
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+
+		<!-- end of modal search help -->
 
 		<!-- header, viewer and parse table -->
 		<div class="row" style="position:relative; top:20px;">

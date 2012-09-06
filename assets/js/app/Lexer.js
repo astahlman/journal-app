@@ -1,6 +1,7 @@
 define (function (require, exports, module) {
 
 	var Models = require('./Models');
+	var Logger = require('./Logger');
 
 	var types = ["content", "tagOpen", "tagClose", "defineOpen", "defineClose", "ignoreOpen", "ignoreClose"];
 
@@ -21,7 +22,7 @@ define (function (require, exports, module) {
 		var p1, p2;
 		lines.forEach(function (line) {
 			var linePos = 0;
-			console.log("Lexing line: " + line);
+			Logger.log("Lexing line: " + line);
 			while (m = pattern.exec(line)) {
 				var content = line.substring(linePos, m.index);
 				if (content.length > 0) {
