@@ -34,6 +34,7 @@ class Node(models.Model):
 	def get_dict(self):
 		"""Returns a dictionary for serialization."""
 		d = {}
+		d['index'] = self.index
 		d['nodeVal'] = self.nodeVal
 		d['nodeType'] = self.nodeType
 		d['nodeContent'] = self.nodeContent
@@ -41,15 +42,17 @@ class Node(models.Model):
 		d['containingEntryNum'] = self.containingEntry.entryNum
 		d['publicID'] = self.publicID
 		d['children'] = []
-		for c in self.children.all():
+		for c in self.children.all().order_by('index'):
 			d['children'].append(c.get_dict())
 		return d
 
 	@classmethod
-	def build_subtree(cls, nodeVal, nodeType, nodeContent, level, children, entry):
-		root = cls.objects.create(nodeVal=nodeVal, nodeType=nodeType, nodeContent=nodeContent, level=level, containingEntry=entry)
+	def build_subtree(cls, index, nodeVal, nodeType, nodeContent, level, children, entry):
+		root = cls.objects.create(index=index, nodeVal=nodeVal, nodeType=nodeType, nodeContent=nodeContent, level=level, containingEntry=entry)
+		i = 0
 		for c in children:
-			root.children.add(cls.build_subtree(c['nodeVal'], c['nodeType'], c['nodeContent'], c['level'], c['children'], entry))
+			root.children.add(cls.build_subtree(i, c['nodeVal'], c['nodeType'], c['nodeContent'], c['level'], c['children'], entry))
+			i += 1
 		return root
 	
 	def make_public(self):
@@ -185,7 +188,7 @@ class EntryManager(models.Manager):
 		newEntryNum = lastEntry.entryNum  + 1 if lastEntry is not None else 0
 		e = self.create(rawText=rawText, author=author, entryNum=newEntryNum, creationDate=now(), lastEditDate=now())
 		e.save()
-		e.treeRoot = Node.build_subtree(rootData['nodeVal'], rootData['nodeType'], rootData['nodeContent'], rootData['level'], rootData['children'], e) 
+		e.treeRoot = Node.build_subtree(0, rootData['nodeVal'], rootData['nodeType'], rootData['nodeContent'], rootData['level'], rootData['children'], e) 
 		e.save()
 		author.get_profile().numEntries = newEntryNum + 1 # 0-indexed
 		author.get_profile().save()
@@ -200,7 +203,7 @@ class EntryManager(models.Manager):
 			e.rawText = rawText
 			oldRoot = e.treeRoot
 			logging.debug("About to update the entry.")
-			e.treeRoot = Node.build_subtree(rootData['nodeVal'], rootData['nodeType'], rootData['nodeContent'], rootData['level'], rootData['children'], e) 
+			e.treeRoot = Node.build_subtree(0, rootData['nodeVal'], rootData['nodeType'], rootData['nodeContent'], rootData['level'], rootData['children'], e) 
 			e.lastEditDate = now()
 			e.save()
 			# make sure to delete AFTER resetting the entry rootNode so delete doesn't cascade

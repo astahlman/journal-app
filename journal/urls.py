@@ -34,5 +34,4 @@ urlpatterns = patterns('',
 	url(r'^comments/$', 'journal.journal_app.views.comments'),
 	url(r'^tests/$', 'journal.journal_app.views.tests'),
 	url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root' : settings.STATIC_ROOT}),
-	url(r'^db/', 'journal.journal_app.db_views.drop_table'),
 )
