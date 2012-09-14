@@ -22,6 +22,7 @@ class Node(models.Model):
 	nodeType = models.CharField(max_length=75)
 	nodeContent = models.TextField()
 	level = models.IntegerField()
+	index = models.IntegerField()
 	containingEntry = models.ForeignKey('Entry', related_name='nodes')
 	publicID = models.CharField(max_length=75, null=True)
 
