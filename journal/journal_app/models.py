@@ -179,6 +179,7 @@ post_save.connect(create_user_profile, sender=User)
 class EntryManager(models.Manager):
 	"""Custom Manager for Entry model."""
 	def create_entry(self, rawText, author, rootData):
+		logging.debug("In create_entry. rootData = " + str(rootData))
 		lastEntry = author.get_profile().get_last_entry()
 		newEntryNum = lastEntry.entryNum  + 1 if lastEntry is not None else 0
 		e = self.create(rawText=rawText, author=author, entryNum=newEntryNum, creationDate=now(), lastEditDate=now())
