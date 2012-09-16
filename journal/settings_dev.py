@@ -16,3 +16,4 @@ extra_settings = open(key_path, 'r')
 for line in extra_settings:
 	exec line # evaluates the strings as assignments
 
+URL_BASE = 'http://127.0.0.1:8000'

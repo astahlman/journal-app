@@ -96,12 +96,21 @@ define (function (require, exports, module) {
 				cur = cur.parentNode;
 				level--;
 			} else { // plain content
-				Logger.log("Creating content node at level " + level + ". Content: " + t.val);
-				n = new Models.Node(t, level);
-				n.range.setStart(t.range.start);
-				n.range.setEnd(t.range.end);
-				n.nodeContent = textInRange(n.range);
-				cur.addChild(n);
+				// compact subsequent content nodes
+				var numChildren = cur.children.length;
+				if (numChildren > 0 && cur.children[numChildren - 1].nodeType === "content") {
+					var sibling = cur.children[numChildren - 1];
+					sibling.nodeVal += "\n" + t.val;
+					sibling.range.setEnd(t.range.end);
+					sibling.nodeContent = textInRange(n.range);
+				} else { // create a new content node
+					Logger.log("Creating content node at level " + level + ". Content: " + t.val);
+					n = new Models.Node(t, level);
+					n.range.setStart(t.range.start);
+					n.range.setEnd(t.range.end);
+					n.nodeContent = textInRange(n.range);
+					cur.addChild(n);
+				}
 			}
 		}
 

@@ -18,3 +18,5 @@ SECRET_KEY = env('SECRET_KEY', None)
 
 WEBMASTER_EMAIL = env('WEBMASTER_EMAIL', None)
 WEBMASTER_PASS = env('WEBMASTER_PASS', None)
+
+URL_BASE = 'http://dearqwerty.herokuapp.com/'

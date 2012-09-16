@@ -74,6 +74,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	'django.contrib.messages.context_processors.messages',
 	'django.core.context_processors.request',
 	'django.core.context_processors.csrf',
+	'journal.journal_app.context_processors.url_base',
 )
 
 MIDDLEWARE_CLASSES = (
