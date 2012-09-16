@@ -34,7 +34,10 @@ define (function (require, exports, module) {
 		var PREFIX = 'node-'
 		var inUse = [];
 		function buildID(node) {
+			var invalidChars = /[^a-zA-Z0-9:_\.\s-]/g;
 			var id = PREFIX + node.nodeVal + '-' + node.level;
+			id = id.replace(invalidChars, "");
+			id = id.replace(/\s/g, '_');
 			var dup = 1;
 			while (inUse.indexOf(id) > -1) {
 				if (dup == 1) {
@@ -125,7 +128,7 @@ define (function (require, exports, module) {
 		for (var i = 0; i < extra; i++) {
 			appendText = TAB_CHAR + appendText;
 		}
-		this.$contentDiv.append(appendText.replace('\n', '<br>'));
+		this.$contentDiv.append(appendText.replace(/\n/g, '<br>'));
 	}
 
 	function buildNodeView(nodeIn) {
