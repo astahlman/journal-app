@@ -15,7 +15,7 @@
 		As you type, your entry is being interpreted in real time. If you do something invalid, you'll hear about it in the error table below.
 	<*/Parser*>
 	<*Saving*>
-		Once you <a href="/register/">register</a> for free, you will be able to save your entries, review and search through them later, edit them, or even share them with others. You'll also be able to define templates that you can reuse later to make creating entries faster.
+		Once you <a href="accounts/register/">register</a> for free, you will be able to save your entries, review and search through them later, edit them, or even share them with others. You'll also be able to define templates that you can reuse later to make creating entries faster.
 	<*/Saving*>
 <*/Crash Course*>
 Those are the highlights, if you want a more in-depth look at the syntax and all of the awesome things you can do with DearQwerty, check out the <a href="/public/cbbcd">tutorial</a>. Now delete this and give it a whirl. You'll be able to preview your entry live on the right.
